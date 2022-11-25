@@ -1,0 +1,18 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.4.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DemoProject.DataAccess\DemoProject.DataAccess.csproj" />
+    <ProjectReference Include="..\DemoProject.DTO\DemoProject.DTO.csproj" />
+    <ProjectReference Include="..\DemoProject.Entities\DemoProject.Entities.csproj" />
+  </ItemGroup>
+
+</Project>

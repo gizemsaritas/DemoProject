@@ -10,7 +10,12 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using DemoProject.Business.Containers;
+using DemoProject.DTO.Concrete.JWT;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace DemoProject.WebApi
 {
@@ -32,6 +37,33 @@ namespace DemoProject.WebApi
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "DemoProject.WebApi", Version = "v1" });
             });
+
+            services.AddDependencies();
+            
+            #region JWTConfig
+
+            services.Configure<JwtInfo>(Configuration.GetSection("JWTInfo"));
+            var jwtInfo = Configuration.GetSection("JwtInfo").Get<JwtInfo>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(opt =>
+            {
+                opt.RequireHttpsMetadata = false;
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidIssuer = jwtInfo.Issuer,
+                    ValidAudience = jwtInfo.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtInfo.SecurityKey)),
+                    ValidateLifetime = true,
+                    ValidateAudience = true,
+                    ValidateIssuer = true,
+                    ClockSkew = TimeSpan.Zero,
+                    ValidateIssuerSigningKey = true
+                };
+            });
+
+            #endregion
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -49,6 +81,10 @@ namespace DemoProject.WebApi
             app.UseRouting();
 
             app.UseAuthorization();
+            
+            app.UseAuthentication();
+
+            app.UseSwagger();
 
             app.UseEndpoints(endpoints =>
             {

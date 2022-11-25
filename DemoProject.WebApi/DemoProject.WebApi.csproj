@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.17" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.17">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -13,7 +14,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DemoProject.Business\DemoProject.Business.csproj" />
     <ProjectReference Include="..\DemoProject.DataAccess\DemoProject.DataAccess.csproj" />
+    <ProjectReference Include="..\DemoProject.DTO\DemoProject.DTO.csproj" />
   </ItemGroup>
 
 </Project>
