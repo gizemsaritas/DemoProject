@@ -16,6 +16,7 @@ using DemoProject.Business.Containers;
 using DemoProject.DTO.Concrete.JWT;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using AutoMapper;
 
 namespace DemoProject.WebApi
 {
@@ -60,6 +61,12 @@ namespace DemoProject.WebApi
                     ValidateIssuerSigningKey = true
                 };
             });
+
+            #endregion
+
+            #region AutoMapper
+
+            services.AddAutoMapper(typeof(Startup));
 
             #endregion
 
